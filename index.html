@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Bilderkennung mit ml5.js</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/ml5@latest/dist/ml5.min.js"></script>
+</head>
+<body>
+
+<h1>Bilderkennung mit ml5.js</h1>
+
+<div class="upload-section" id="user-upload">
+    <p><strong>Bild hochladen oder per Drag & Drop ablegen</strong></p>
+    <input type="file" id="imageInput" accept="image/*">
+    <img id="userImage" src="" alt="Vorschau" style="max-width: 400px; margin-top: 10px; border-radius: 8px;">
+    <br>
+    <button id="classifyBtn" disabled>Bild klassifizieren</button>
+
+    <!-- Ergebnis direkt hier -->
+    <div id="dynamicResults" class="card-grid"></div>
+</div>
+
+<h2 style="text-align:center;">Beispielbilder</h2>
+<div class="card-grid" id="exampleResults"></div>
+
+<section id="discussion">
+    <h2>Diskussion</h2>
+    <p>Welche Bilder wurden gut oder schlecht klassifiziert? Welche Schwierigkeiten gab es und warum?</p>
+</section>
+
+<section id="documentation">
+    <h2>Dokumentation</h2>
+    <h3>Technisch</h3>
+    <p>Verwendet wurden ml5.js für Klassifikation und eigene HTML/CSS/JS-Komponenten. Drag & Drop über HTML5 File API.</p>
+    <h3>Fachlich</h3>
+    <p>MobileNet-Modell erkennt Inhalte auf Basis vortrainierter Daten. Visualisierung mit Balken und Bewertung der Ergebnisse (korrekt/falsch).</p>
+</section>
+
+<script src="assets/js/script.js"></script>
+</body>
+</html>
