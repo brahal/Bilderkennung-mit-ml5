@@ -5,37 +5,77 @@
     <title>Bilderkennung mit ml5.js</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/ml5@latest/dist/ml5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
 <h1>Bilderkennung mit ml5.js</h1>
 
-<div class="upload-section" id="user-upload">
-    <p><strong>Bild hochladen oder per Drag & Drop ablegen</strong></p>
-    <input type="file" id="imageInput" accept="image/*">
-    <img id="userImage" src="" alt="Vorschau" style="max-width: 400px; margin-top: 10px; border-radius: 8px;">
-    <br>
+<h2>Beispielbilder</h2>
+<div id="exampleResults"></div>
+
+<div class="upload-section">
+    <h3>Bild hochladen</h3>
+    <p>Ziehe ein Bild hierher oder klicke auf den Button unten</p>
+    <button id="uploadButton" class="upload-btn">Datei auswählen</button>
+    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+    <img id="userImage" style="display:none; margin-top: 10px; max-width: 100%;">
     <button id="classifyBtn" disabled>Bild klassifizieren</button>
-
-    <!-- Ergebnis direkt hier -->
-    <div id="dynamicResults" class="card-grid"></div>
 </div>
-
-<h2 style="text-align:center;">Beispielbilder</h2>
-<div class="card-grid" id="exampleResults"></div>
+<div id="dynamicResults" class="card-grid">
+</div>
 
 <section id="discussion">
     <h2>Diskussion</h2>
-    <p>Welche Bilder wurden gut oder schlecht klassifiziert? Welche Schwierigkeiten gab es und warum?</p>
+    <p>
+        Das MobileNet-Modell konnte die drei typischen Objekte Banane, Erdbeere und Pizza
+        zuverlässig erkennen. Die Confidence-Werte lagen jeweils über 90 % und zeigten eine
+        hohe Übereinstimmung mit den Trainingsdaten. Bei den drei falsch klassifizierten Bildern war
+        die Leistung dagegen deutlich schwächer. Besonders Aufnahmen mit ungewöhnlicher Perspektive,
+        schlechter Beleuchtung oder weniger typischen Merkmalen führten häufiger zu Fehlklassifikationen.
+        Auffällig war zudem, dass die Confidence-Werte bei falschen Vorhersagen deutlich niedriger lagen.
+        Insgesamt bestätigt sich, dass MobileNet bei klassischen, klaren Bildern sehr zuverlässig arbeitet,
+        aber bei abweichenden Eingaben schnell an seine Grenzen stößt. Für den praktischen
+        Einsatz ist daher eine vielfältige und repräsentative Trainingsdatenbasis besonders wichtig.
+
+    </p>
 </section>
 
 <section id="documentation">
     <h2>Dokumentation</h2>
-    <h3>Technisch</h3>
-    <p>Verwendet wurden ml5.js für Klassifikation und eigene HTML/CSS/JS-Komponenten. Drag & Drop über HTML5 File API.</p>
-    <h3>Fachlich</h3>
-    <p>MobileNet-Modell erkennt Inhalte auf Basis vortrainierter Daten. Visualisierung mit Balken und Bewertung der Ergebnisse (korrekt/falsch).</p>
-</section>
+    <h3>1) Technisch</h3>
+    <p>
+        Für die Umsetzung habe ich hauptsätzlich zwei Frameworks verwendet:
+    </p>
+
+    <ul>
+        <li><strong>ml5.js:</strong> Dieses Framework habe ich verwendet, um ein vortrainiertes MobileNet-Modell in meine Anwendung einzubinden. Über ml5 konnte ich Bilder direkt im Browser klassifizieren lassen, ohne ein eigenes neuronales Netzwerk trainieren zu müssen.</li>
+        <li><strong>Chart.js:</strong> Mit Chart.js habe ich die Klassifikationsergebnisse als übersichtliche horizontale Balkendiagramme dargestellt. So konnte ich die Confidence-Werte der Vorhersagen besser visualisieren.</li>
+    </ul>
+
+    <p><strong>Technische Besonderheiten:</strong></p>
+    <p>
+        Die Anwendung ist komplett clientseitig aufgebaut und ermöglicht sowohl den Upload eigener Bilder als auch Drag-and-Drop.
+        Hochgeladene Bilder werden sofort angezeigt und der Nutzer bekommt nach dem Klassifizieren direkte Rückmeldung in Form einer Karte
+        mit Bild, Klassifikation, Übersetzung ins Deutsche und einem Diagramm der Top-Ergebnisse.
+        Zusätzlich habe ich darauf geachtet, dass beim Hochladen nur Bilder akzeptiert werden und dass Benutzer visuelles Feedback erhalten
+        (z.B. Änderung des Uploadbereichs beim Drag & Drop).
+    </p>
+    <p>
+        Bei der Gestaltung habe ich mich an Prinzipien von Material Design orientiert und die Anforderungen an Usability (ISO 9241-11)
+        und Interaktionsgestaltung (ISO 9241-110) berücksichtigt.
+    </p>
+
+    <h3>2) Fachlich</h3>
+    <p>
+        Die Anwendung basiert auf der Idee, dem Nutzer eine einfache Möglichkeit zu geben, Bilder direkt im Browser mit einem vortrainierten Modell zu klassifizieren.
+        Besonderes Augenmerk lag auf einer klaren Darstellung der Ergebnisse, einer intuitiven Bedienung und einer visuell ansprechenden Gestaltung.
+        Die Nutzung von vortrainierten Modellen wie MobileNet spart Trainingszeit und ermöglicht eine schnelle Umsetzung.
+        Als Grundlage für die Beispielbilder wurde der ImageNet-Datensatz verwendet. Quellen: ml5.js Dokumentation, Chart.js Dokumentation,
+        ImageNet, Material Design Guidelines, MDN Web APIs.
+    </p>
+
+   </section>
 
 <script src="assets/js/script.js"></script>
 </body>
