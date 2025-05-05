@@ -110,40 +110,6 @@ function generateChart(results, container) {
     });
 }
 
-
-
-// Neue Visualisierung für Klassifikationsergebnisse
-function generateSimpleResults(results, container) {
-    container.innerHTML = '';
-
-    results.forEach(result => {
-        const row = document.createElement('div');
-        row.className = 'confidence-entry';
-
-        const label = document.createElement('span');
-        label.className = 'label';
-        label.innerText = result.label;
-
-        const barContainer = document.createElement('div');
-        barContainer.className = 'bar-container';
-
-        const bar = document.createElement('div');
-        bar.className = 'bar';
-        bar.style.width = (result.confidence * 100).toFixed(1) + '%';
-
-        const percentage = document.createElement('span');
-        percentage.className = 'percentage';
-        percentage.innerText = (result.confidence * 100).toFixed(1) + '%';
-
-        barContainer.appendChild(bar);
-        row.appendChild(label);
-        row.appendChild(barContainer);
-        row.appendChild(percentage);
-
-        container.appendChild(row);
-    });
-}
-
 // Eine Karte (Card) mit Bild, Ergebnis und Diagramm erstellen
 async function createCard(imgSrc, label, results, correct) {
     const translatedLabel = await translateLabel(label);
@@ -199,6 +165,8 @@ function classifyUserImage(img, container) {
 
 
 function classifyExampleImages() {
+    showLoading();
+
     const correctPaths = [
         "assets/img/correct1.jpg",
         "assets/img/correct2.jpg",
@@ -209,6 +177,9 @@ function classifyExampleImages() {
         "assets/img/wrong2.jpg",
         "assets/img/wrong3.jpg"
     ];
+
+    let total = correctPaths.length + wrongPaths.length;
+    let finished = 0;
 
     const container = document.getElementById('exampleResults');
     container.innerHTML = '';
@@ -252,9 +223,21 @@ function classifyExampleImages() {
 
             const card = await createCard(img.src, topResult.label, results, correct);
             container.appendChild(card);
+            finished++;
+            if (finished === total) hideLoading();
         }).catch(err => {
             console.error("Fehler bei classifyAndDisplay():", err);
             alert("Fehler bei der Klassifikation");
+            finished++;
+            if (finished === total) hideLoading();
         });
     }
+}
+
+function showLoading() {
+    document.getElementById('loadingOverlay').style.display = 'flex';
+}
+
+function hideLoading() {
+    document.getElementById('loadingOverlay').style.display = 'none';
 }

@@ -28,54 +28,74 @@
 <section id="discussion">
     <h2>Diskussion</h2>
     <p>
-        Das MobileNet-Modell konnte die drei typischen Objekte Banane, Erdbeere und Pizza
-        zuverlässig erkennen. Die Confidence-Werte lagen jeweils über 90 % und zeigten eine
-        hohe Übereinstimmung mit den Trainingsdaten. Bei den drei falsch klassifizierten Bildern war
-        die Leistung dagegen deutlich schwächer. Besonders Aufnahmen mit ungewöhnlicher Perspektive,
-        schlechter Beleuchtung oder weniger typischen Merkmalen führten häufiger zu Fehlklassifikationen.
-        Auffällig war zudem, dass die Confidence-Werte bei falschen Vorhersagen deutlich niedriger lagen.
-        Insgesamt bestätigt sich, dass MobileNet bei klassischen, klaren Bildern sehr zuverlässig arbeitet,
-        aber bei abweichenden Eingaben schnell an seine Grenzen stößt. Für den praktischen
-        Einsatz ist daher eine vielfältige und repräsentative Trainingsdatenbasis besonders wichtig.
-
+        Das MobileNet-Modell hat die Objekte Banane, Erdbeere und Pizza zuverlässig
+        erkannt. Die Confidence-Werte lagen bei diesen korrekten Vorhersagen meist über 90 %.
+        Schwieriger wurde es bei Bildern mit ungewöhnlicher Perspektive, schwacher Beleuchtung oder wenig typischen Merkmalen,
+        hier kam es häufiger zu Fehlklassifikationen.
+        Auffällig war außerdem, dass die Confidence-Werte bei den falschen Ergebnissen deutlich niedriger lagen.
+        Die Anwendung zeigt, dass MobileNet besonders bei klaren,
+        gut erkennbaren Bildern gut funktioniert,
+        aber bei Abweichungen wie Hintergrundrauschen oder ungewöhnlichem Bildaufbau schnell
+        an Genauigkeit verliert. Das zeigt, wie wichtig eine vielfältige Trainingsdatenbasis ist,
+        damit ein Modell auch in der Praxis zuverlässig arbeitet.
     </p>
+
 </section>
 
 <section id="documentation">
     <h2>Dokumentation</h2>
     <h3>1) Technisch</h3>
     <p>
-        Für die Umsetzung habe ich hauptsätzlich zwei Frameworks verwendet:
+        Für die Umsetzung habe ich folgende Frameworks verwendet:
     </p>
 
     <ul>
-        <li><strong>ml5.js:</strong> Dieses Framework habe ich verwendet, um ein vortrainiertes MobileNet-Modell in meine Anwendung einzubinden. Über ml5 konnte ich Bilder direkt im Browser klassifizieren lassen, ohne ein eigenes neuronales Netzwerk trainieren zu müssen.</li>
-        <li><strong>Chart.js:</strong> Mit Chart.js habe ich die Klassifikationsergebnisse als übersichtliche horizontale Balkendiagramme dargestellt. So konnte ich die Confidence-Werte der Vorhersagen besser visualisieren.</li>
+
+        <li><strong>ml5.js:</strong> Dient zur Einbindung des vortrainierten MobileNet-Modells. Die Klassifikation erfolgt vollständig clientseitig im Browser.</li>
+        <li><strong>MyMemory Translation API:</strong> Übersetzt die englischen Klassifikations-Labels des Modells automatisch ins Deutsche.</li>
+        <li><strong>Chart.js:</strong> Mit Chart.js habe ich die Klassifikationsergebnisse als übersichtliche horizontale Balkendiagramme dargestellt.</li>
+
     </ul>
 
-    <p><strong>Technische Besonderheiten:</strong></p>
-    <p>
-        Die Anwendung ist komplett clientseitig aufgebaut und ermöglicht sowohl den Upload eigener Bilder als auch Drag-and-Drop.
-        Hochgeladene Bilder werden sofort angezeigt und der Nutzer bekommt nach dem Klassifizieren direkte Rückmeldung in Form einer Karte
-        mit Bild, Klassifikation, Übersetzung ins Deutsche und einem Diagramm der Top-Ergebnisse.
-        Zusätzlich habe ich darauf geachtet, dass beim Hochladen nur Bilder akzeptiert werden und dass Benutzer visuelles Feedback erhalten
-        (z.B. Änderung des Uploadbereichs beim Drag & Drop).
-    </p>
-    <p>
-        Bei der Gestaltung habe ich mich an Prinzipien von Material Design orientiert und die Anforderungen an Usability (ISO 9241-11)
-        und Interaktionsgestaltung (ISO 9241-110) berücksichtigt.
-    </p>
+    <p><strong>Technische Besonderheiten meiner Lösung:</strong></p>
+
+        <ul>
+            <li>Die Anwendung läuft komplett ohne Backend. Alle Funktionen (Modell, Upload, Anzeige, Klassifikation, Übersetzung) befinden sich im Frontend (JavaScript).</li>
+            <li>Die Bildauswahl funktioniert sowohl per Drag & Drop als auch klassisch über Dateiupload.</li>
+            <li>Die Klassifikation wird sofort nach dem Klick durchgeführt, und die Ergebnisse (Label + Confidence) werden visuell als Karte mit Bild, Status („korrekt“ oder „falsch“) und Balkenanzeige dargestellt.</li>
+            <li>Der Schwellenwert für eine „korrekte“ Klassifikation wurde auf 70 % gesetzt (wie in der Funktion <code>classifyUserImage</code> im JS-Code).</li>
+            <li>Alle Übersetzungen der Labels erfolgen dynamisch und automatisch durch einen API-Request zur MyMemory Translation API.</li>
+
+        </ul>
 
     <h3>2) Fachlich</h3>
+
     <p>
-        Die Anwendung basiert auf der Idee, dem Nutzer eine einfache Möglichkeit zu geben, Bilder direkt im Browser mit einem vortrainierten Modell zu klassifizieren.
-        Besonderes Augenmerk lag auf einer klaren Darstellung der Ergebnisse, einer intuitiven Bedienung und einer visuell ansprechenden Gestaltung.
-        Die Nutzung von vortrainierten Modellen wie MobileNet spart Trainingszeit und ermöglicht eine schnelle Umsetzung.
-        Als Grundlage für die Beispielbilder wurde der ImageNet-Datensatz verwendet. Quellen: ml5.js Dokumentation, Chart.js Dokumentation,
-        ImageNet, Material Design Guidelines, MDN Web APIs.
+        Die Anwendung erlaubt Nutzer:innen, eigene Bilder hochzuladen und diese direkt im Browser mit einem Deep-Learning-Modell zu klassifizieren.
+        Technisch basiert die Logik auf einem leichtgewichtigen Modell (MobileNet), das bereits auf dem ImageNet-Datensatz trainiert wurde.
+        Damit entfällt das aufwendige Training eigener Netze.
+    </p>
+    <p>
+        Nach dem Upload wird das Bild angezeigt und analysiert. Die wichtigsten Vorhersagen werden inklusive Confidence-Werten angezeigt.
+        Zusätzlich wird durch Balken visualisiert, wie sicher das Modell bei jedem Label war.
+    </p>
+    <p>
+        Die Entscheidung, ob ein Bild „korrekt“ oder „falsch“ klassifiziert wurde, erfolgt anhand eines festen Confidence-Schwellenwerts von 70 %.
+        Für bessere Benutzerfreundlichkeit werden die englischen Labels des Modells mithilfe der MyMemory API automatisch übersetzt.
+        Dadurch bleibt die Anwendung verständlich und zugänglich – auch ohne technische Vorkenntnisse.
     </p>
 
+    <p><strong>Quellen:</strong></p>
+    <ul>
+        <li><a href="https://docs.ml5js.org/#/" target="_blank">ml5.js Dokumentation</a></li>
+        <li><a href="https://mymemory.translated.net/doc/spec.php" target="_blank">MyMemory Translation API</a></li>
+        <li><a href="https://www.image-net.org/" target="_blank">ImageNet Datensatz</a></li>
+    </ul>
+
    </section>
+<div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner"></div>
+</div>
 
 <script src="assets/js/script.js"></script>
 </body>
