@@ -9,6 +9,7 @@ window.onload = () => {
     const uploadButton = document.getElementById('uploadButton');
     const imageInput = document.getElementById('imageInput');
     const classifyBtn = document.getElementById('classifyBtn');
+    classifyBtn.disabled = true;
 
     if (dropArea) {
         dropArea.addEventListener('dragover', (e) => {
