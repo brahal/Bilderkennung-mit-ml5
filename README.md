@@ -13,3 +13,7 @@ Dies ist eine einfache Web-Anwendung zur Bildklassifikation mithilfe des ml5.js 
 - HTML, CSS, JavaScript
 - [ml5.js](https://ml5js.org/)
 - [Chart.js](https://www.chartjs.org/)
+- 
+ ## Deployment
+
+Die Seite ist unter https://witty-stone-04dac3010.6.azurestaticapps.net/ erreichbar.
