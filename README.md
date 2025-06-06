@@ -16,4 +16,4 @@ Dies ist eine einfache Web-Anwendung zur Bildklassifikation mithilfe des ml5.js 
 - 
  ## Deployment
 
-Die Seite ist unter https://witty-stone-04dac3010.6.azurestaticapps.net/ erreichbar.
+Die Seite ist unter https://brahal.github.io/Bilderkennung-mit-ml5/ erreichbar.
